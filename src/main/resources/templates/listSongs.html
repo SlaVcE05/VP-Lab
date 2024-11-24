@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <title>Songs Homepage - Welcome to My Music Store</title>
+  <style type="text/css">
+    body {
+      width: 800px;
+      margin: auto;
+    }
+    #error{
+      color: red;
+    }
+    a {
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Welcome to My Music Store</h1>
+</header>
+<main>
+  <th:block th:if="${hasError}">
+    <div id="error"><h2 th:text="error">Song not selected!</h2></div>
+  </th:block>
+  <h2>Choose a song:</h2>
+  <form action="/artist" method="get">
+    <div th:each="song : ${songs}">
+      <label>
+        <input type="radio" name="trackId" th:value="${song.trackId}">
+        Title: <span th:text="${song.title}"></span>, Genre: <span th:text="${song.genre}"></span>, Release Year: <span th:text="${song.releaseYear}"></span>, Album: <span th:text="${song.getAlbum().getName()}"></span>
+      </label>
+
+      <a th:href="'/songs/edit/' + ${song.id}">Edit</a>
+
+      <button formmethod="post" th:formaction="'/songs/delete/' + ${song.id}">Delete</button>
+
+      <br/>
+    </div>
+    <input type='submit' value='Submit'>
+  </form>
+  <button onclick="location.href='songs/add'">Add Song</button>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Add new Performer to Book</title>
+    <style type = "text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+        table {
+            width:100%;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding:3px 2px;
+        }
+        section {
+            float: left;
+            margin: 0 1.5%;
+            width: 63%;
+        }
+        aside {
+            float: right;
+            margin: 0 1.5%;
+            width: 30%;
+        }
+        #error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Select the Artist to add to the List of Performers </h1>
+</header>
+<section>
+    <th:block th:if="${error}">
+        <div id="error"><h2>Artist not selected!</h2></div>
+    </th:block>
+        <form action="#" method="post">
+            <h2>Select artist:</h2>
+        <!-- Make changes to this code to dynamically display radio buttons for each artist as in the example -->
+
+        <label th:each="artist: ${artists}">
+            <input type="radio" name="artistId" th:value="${artist.id}"> <span th:text="${artist.firstName}"></span> <span th:text="${artist.lastName}"></span>
+            <br/>
+        </label>
+        <br/>
+
+        <input type='submit' value='Add artist'>
+    </form>
+
+</section>
+<aside>
+    <table>
+        <tr>
+            <!-- change to show selected trackId -->
+            <td><b>Track Id</b></td>
+            <td><span th:text="${trackId}"></span></td>
+        </tr>
+    </table>
+</aside>
+</body>
+</html>
