@@ -23,7 +23,7 @@ public class SongController {
     public String getSongsPage(@RequestParam(required = false) String error, Model model){
 
         if (error != null){
-            model.addAttribute("error", error);
+            model.addAttribute("hasError", error);
         }
 
         model.addAttribute("songs",songService.listSongs());
@@ -35,7 +35,7 @@ public class SongController {
     @GetMapping("/add")
     public String saveSong(Model model){
         model.addAttribute("albums",albumService.findAll());
-        return "addSong";
+        return "add-song";
     }
 
     @PostMapping("/add")
@@ -46,7 +46,11 @@ public class SongController {
 
     @GetMapping("/edit/{songId}")
     public String editSong(@PathVariable Long songId, Model model){
-        model.addAttribute("song", songService.findBySongId(songId));
+        Song song = songService.findBySongId(songId);
+        if (song == null){
+            return "redirect:/songs?error=Song Not Found!";
+        }
+        model.addAttribute("song", song);
         model.addAttribute("albums",albumService.findAll());
         return "editSong";
     }

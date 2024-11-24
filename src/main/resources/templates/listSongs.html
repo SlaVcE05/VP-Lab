@@ -21,7 +21,7 @@
 </header>
 <main>
   <th:block th:if="${hasError}">
-    <div id="error"><h2 th:text="error">Song not selected!</h2></div>
+    <div id="error"><h2 th:text="${error}">Song not selected!</h2></div>
   </th:block>
   <h2>Choose a song:</h2>
   <form action="/artist" method="get">

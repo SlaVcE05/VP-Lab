@@ -12,11 +12,11 @@ public class AlbumRepository {
     List<Album> albums;
     public AlbumRepository() {
         albums = new ArrayList<>();
-        albums.add(new Album("name","genre1","1.1.1970"));
-        albums.add(new Album("name2","genre2","1.1.1970"));
-        albums.add(new Album("name3","genre3","1.1.1970"));
-        albums.add(new Album("name4","genre4","1.1.1970"));
-        albums.add(new Album("name5","genre5","1.1.1970"));
+        albums.add(new Album("Echoes of Eternity","Synthwave","2023"));
+        albums.add(new Album("Moonlit Horizons","Jazz","2020"));
+        albums.add(new Album("Fading into the Dawn","Metal","2019"));
+        albums.add(new Album("Beyond the Neon","Retro Pop","2018"));
+        albums.add(new Album("Cosmic","Dubstep","2020"));
     }
 
     public List<Album> findAll() {

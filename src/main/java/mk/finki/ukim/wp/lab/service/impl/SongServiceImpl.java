@@ -42,7 +42,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Object findBySongId(Long songId) {
+    public Song findBySongId(Long songId) {
         return songRepository.findBySongId(songId);
     }
 
