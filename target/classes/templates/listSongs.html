@@ -4,7 +4,7 @@
   <title>Songs Homepage - Welcome to My Music Store</title>
   <style type="text/css">
     body {
-      width: 800px;
+      width: 1000px;
       margin: auto;
     }
     #error{
@@ -13,6 +13,44 @@
     a {
       padding: 5px;
     }
+
+    .details {
+      background: blue;
+      text-decoration: none;
+      color: wheat;
+      padding: 2px 7px 2px 7px;
+    }
+
+    .edit {
+      background: green;
+      text-decoration: none;
+      color: wheat;
+      padding: 2px 7px 2px 7px;
+    }
+    .delete {
+      background: red;
+      text-decoration: none;
+      color: wheat;
+      padding: 2px 7px 2px 7px;
+    }
+
+    .item {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .btns {
+      display: flex;
+      flex-grow: 1;
+      justify-content: flex-end;
+
+    }
+
+
+
   </style>
 </head>
 <body>
@@ -25,15 +63,17 @@
   </th:block>
   <h2>Choose a song:</h2>
   <form action="/artist" method="get">
-    <div th:each="song : ${songs}">
+    <div class="item" th:each="song : ${songs}">
       <label>
         <input type="radio" name="trackId" th:value="${song.trackId}">
         Title: <span th:text="${song.title}"></span>, Genre: <span th:text="${song.genre}"></span>, Release Year: <span th:text="${song.releaseYear}"></span>, Album: <span th:text="${song.getAlbum().getName()}"></span>
       </label>
 
-      <a th:href="'/songs/edit/' + ${song.id}">Edit</a>
-
-      <button formmethod="post" th:formaction="'/songs/delete/' + ${song.id}">Delete</button>
+      <div class="btns">
+        <a class="details" th:href="'/songDetails?trackId=' + ${song.trackId}">Details</a>
+        <a class="edit" th:href="'/songs/edit/' + ${song.id}">Edit</a>
+        <button class="delete" formmethod="post" th:formaction="'/songs/delete/' + ${song.id}">Delete</button>
+      </div>
 
       <br/>
     </div>
