@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artist Search</title>
+    <style type = "text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+        section {
+            float: left;
+            margin: 0 1.5%;
+            width: 63%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Artist Search</h1>
+</header>
+
+<div th:each="artist: ${artists}">
+    <a th:href="'../artistDetails?artistId='+ ${artist.id}"><span th:text="${artist.firstName} + ' ' + ${artist.lastName}"></span></a>
+</div>
+
+
+</body>
+</html>

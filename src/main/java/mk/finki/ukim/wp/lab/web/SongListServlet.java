@@ -34,8 +34,6 @@ public class SongListServlet extends HttpServlet {
         context.setVariable("hasError",req.getParameter("hasError"));
         context.setVariable("songs",songService.listSongs());
 
-        System.out.println(songService.listSongs());
-
         springTemplateEngine.process("listSongs.html", context, resp.getWriter());
     }
 }

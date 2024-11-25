@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ArtistDetailsServlet",urlPatterns = "/artistDetails")
+@WebServlet(name = "ArtistDetailsServlet",urlPatterns = "/servlet/artistDetails")
 public class ArtistDetailsServlet extends HttpServlet {
     public final SpringTemplateEngine springTemplateEngine;
     public final ArtistService artistService;
