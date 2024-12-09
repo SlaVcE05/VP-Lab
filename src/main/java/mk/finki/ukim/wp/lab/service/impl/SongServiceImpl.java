@@ -5,7 +5,6 @@ import mk.finki.ukim.wp.lab.model.Artist;
 import mk.finki.ukim.wp.lab.model.Song;
 import mk.finki.ukim.wp.lab.repository.AlbumRepository;
 import mk.finki.ukim.wp.lab.repository.SongRepository;
-import mk.finki.ukim.wp.lab.repository.imMemory.InMemorySongRepository;
 import mk.finki.ukim.wp.lab.service.SongService;
 import org.springframework.stereotype.Service;
 

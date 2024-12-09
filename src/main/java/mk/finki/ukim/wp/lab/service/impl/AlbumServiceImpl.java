@@ -2,7 +2,6 @@ package mk.finki.ukim.wp.lab.service.impl;
 
 import mk.finki.ukim.wp.lab.model.Album;
 import mk.finki.ukim.wp.lab.repository.AlbumRepository;
-import mk.finki.ukim.wp.lab.repository.imMemory.InMemoryAlbumRepository;
 import mk.finki.ukim.wp.lab.service.AlbumService;
 import org.springframework.stereotype.Service;
 

@@ -3,7 +3,6 @@ package mk.finki.ukim.wp.lab.web.controller;
 import mk.finki.ukim.wp.lab.model.Song;
 import mk.finki.ukim.wp.lab.service.AlbumService;
 import mk.finki.ukim.wp.lab.service.SongService;
-import org.h2.engine.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +57,7 @@ public class SongController {
         }
         model.addAttribute("song", song);
         model.addAttribute("albums",albumService.findAll());
-        return "editSong";
+        return "add-song";
     }
 
     @PostMapping("/edit/{songId}")
