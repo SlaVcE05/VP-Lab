@@ -39,6 +39,7 @@ public class ArtistDetailsServlet extends HttpServlet {
         WebContext context = new WebContext(webExchange);
 
         String artistId = req.getParameter("artistId");
+        System.out.println(artistId);
 
         if (artistId == null) {
             context.setVariable("artists",artistService.listArtists());

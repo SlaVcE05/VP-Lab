@@ -3,12 +3,13 @@ package mk.finki.ukim.wp.lab.web.controller;
 import mk.finki.ukim.wp.lab.model.Song;
 import mk.finki.ukim.wp.lab.service.AlbumService;
 import mk.finki.ukim.wp.lab.service.SongService;
+import org.h2.engine.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/songs")
+@RequestMapping({"/","/songs"})
 public class SongController {
 
     private final SongService songService;
@@ -20,13 +21,18 @@ public class SongController {
     }
 
     @GetMapping
-    public String getSongsPage(@RequestParam(required = false) String error, Model model){
+    public String getSongsPage(@RequestParam(required = false) String error, @RequestParam(required = false) Long albumId, Model model){
 
         if (error != null){
             model.addAttribute("hasError", error);
         }
 
-        model.addAttribute("songs",songService.listSongs());
+        if (albumId != null){
+            model.addAttribute("songs",songService.findByAlbumId(albumId));
+            model.addAttribute("albumId",albumId);
+        }else model.addAttribute("songs",songService.listSongs());
+
+        model.addAttribute("albums",albumService.findAll());
         model.addAttribute("error", error);
         return "listSongs";
     }

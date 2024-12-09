@@ -13,7 +13,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-@WebServlet(name = "SongListServlet", urlPatterns = {"", "/listSongs"})
+@WebServlet(name = "SongListServlet", urlPatterns = {"/listSongs"})
 public class SongListServlet extends HttpServlet {
     public final SpringTemplateEngine springTemplateEngine;
     public final SongService songService;

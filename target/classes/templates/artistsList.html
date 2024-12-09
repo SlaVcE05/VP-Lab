@@ -4,9 +4,14 @@
     <title>Add new Performer to Book</title>
     <style type = "text/css">
         body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
             width: 800px;
             margin: auto;
+            padding: 20px;
         }
+
         table {
             width:100%;
         }
@@ -24,9 +29,47 @@
             margin: 0 1.5%;
             width: 30%;
         }
-        #error{
+        #error {
             color: red;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
         }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        select, input[type="text"], input[type="submit"] {
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="submit"]:hover {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -40,11 +83,13 @@
         <form action="#" method="post">
             <h2>Select artist:</h2>
         <!-- Make changes to this code to dynamically display radio buttons for each artist as in the example -->
+            <div class="item" th:each="artist: ${artists}">
+                <label>
+                    <input type="radio" name="artistId" th:value="${artist.id}"> <span th:text="${artist.firstName}"></span> <span th:text="${artist.lastName}"></span>
+                    <br/>
+                </label>
 
-        <label th:each="artist: ${artists}">
-            <input type="radio" name="artistId" th:value="${artist.id}"> <span th:text="${artist.firstName}"></span> <span th:text="${artist.lastName}"></span>
-            <br/>
-        </label>
+            </div>
         <br/>
 
         <input type='submit' value='Add artist'>

@@ -4,52 +4,122 @@
   <title>Songs Homepage - Welcome to My Music Store</title>
   <style type="text/css">
     body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f9f9f9;
       width: 1000px;
       margin: auto;
+      padding: 20px;
     }
-    #error{
+
+    header h1 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    #error {
       color: red;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-align: center;
     }
-    a {
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    form label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    select, input[type="text"], input[type="submit"] {
       padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
-    .details {
-      background: blue;
-      text-decoration: none;
-      color: wheat;
-      padding: 2px 7px 2px 7px;
-    }
-
-    .edit {
-      background: green;
-      text-decoration: none;
-      color: wheat;
-      padding: 2px 7px 2px 7px;
-    }
-    .delete {
-      background: red;
-      text-decoration: none;
-      color: wheat;
-      padding: 2px 7px 2px 7px;
+    h2 {
+      font-size: 1.5em;
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
 
     .item {
-      border-radius: 5px;
-      background-color: #f2f2f2;
-      padding: 20px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .item label {
+      flex-grow: 1;
     }
 
     .btns {
       display: flex;
-      flex-grow: 1;
-      justify-content: flex-end;
-
+      gap: 10px;
     }
 
+    a, button {
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      color: white;
+      font-size: 0.9em;
+      text-align: center;
+    }
 
+    a.details {
+      background-color: #007bff;
+    }
+
+    a.edit {
+      background-color: #28a745;
+    }
+
+    button.delete {
+      background-color: #dc3545;
+      border: none;
+    }
+
+    a.details:hover, a.edit:hover, button.delete:hover {
+      opacity: 0.8;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover, select:hover {
+      border-color: #007bff;
+    }
+
+    button#add-song {
+      background-color: #17a2b8;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button#add-song:hover {
+      opacity: 0.9;
+    }
 
   </style>
 </head>
@@ -61,6 +131,16 @@
   <th:block th:if="${hasError}">
     <div id="error"><h2 th:text="${error}">Song not selected!</h2></div>
   </th:block>
+  <form method="get" action="/songs">
+    <label>Filter by album:</label>
+    <select id="albumId" name="albumId">
+      <option value>select album</option>
+      <th:block th:each="album : ${albums}">
+        <option th:value="${album.getId()}" th:selected="${albumId}==${album.getId()}"> <span th:text="${album.getName()}"></span></option>
+      </th:block>
+    </select>
+    <input type="submit" value="search">
+  </form>
   <h2>Choose a song:</h2>
   <form action="/artist" method="get">
     <div class="item" th:each="song : ${songs}">
@@ -79,7 +159,19 @@
     </div>
     <input type='submit' value='Submit'>
   </form>
-  <button onclick="location.href='songs/add'">Add Song</button>
+  <button id="add-song" onclick="location.href='songs/add'">Add Song</button>
+
+  <br><br><br>
+  <form method="get" action="/artistSearch">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName"><br>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName"><br>
+    <label for="bio">Bio:</label>
+    <input type="text" id="bio" name="bio"><br>
+    <input type="submit" value="Search artist">
+
+  </form>
 
 </main>
 </body>
