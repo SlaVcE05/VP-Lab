@@ -15,13 +15,14 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String genre;
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
     private String releaseYear;
 
     @OneToMany(mappedBy = "album")
     List<Song> songs;
 
-    public Album(String name, String genre, String releaseYear) {
+    public Album(String name, Genre genre, String releaseYear) {
         this.name = name;
         this.genre = genre;
         this.releaseYear = releaseYear;

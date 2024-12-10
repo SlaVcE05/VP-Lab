@@ -138,9 +138,17 @@
       <th:block th:each="album : ${albums}">
         <option th:value="${album.getId()}" th:selected="${albumId}==${album.getId()}"> <span th:text="${album.getName()}"></span></option>
       </th:block>
-    </select>
+    </select><br>
+    <label>Filter by genre:</label>
+    <select id="genre" name="genre">
+      <option value>select genre</option>
+      <th:block th:each="songGenre : ${genres}">
+        <option th:value="${songGenre.name()}" th:selected="${#strings.equals(genre,songGenre.name())}"> <span th:text="${songGenre.name()}"></span></option>
+      </th:block>
+    </select><br>
     <input type="submit" value="search">
   </form>
+
   <h2>Choose a song:</h2>
   <form action="/artist" method="get">
     <div class="item" th:each="song : ${songs}">

@@ -18,7 +18,8 @@ public class Song {
     private Long id;
     String trackId;
     String title;
-    String genre;
+    @Enumerated(EnumType.STRING)
+    Genre genre;
     int releaseYear;
     @ManyToMany
     List<Artist> performers;
@@ -26,7 +27,7 @@ public class Song {
     @ManyToOne
     private Album album;
 
-    public Song(String trackId, String title, String genre, int releaseYear, Album album) {
+    public Song(String trackId, String title, Genre genre, int releaseYear, Album album) {
         this.trackId = trackId;
         this.title = title;
         this.genre = genre;

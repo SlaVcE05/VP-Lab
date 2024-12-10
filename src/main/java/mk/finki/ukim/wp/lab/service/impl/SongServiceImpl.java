@@ -2,13 +2,18 @@ package mk.finki.ukim.wp.lab.service.impl;
 
 import mk.finki.ukim.wp.lab.model.Album;
 import mk.finki.ukim.wp.lab.model.Artist;
+import mk.finki.ukim.wp.lab.model.Genre;
 import mk.finki.ukim.wp.lab.model.Song;
 import mk.finki.ukim.wp.lab.repository.AlbumRepository;
 import mk.finki.ukim.wp.lab.repository.SongRepository;
 import mk.finki.ukim.wp.lab.service.SongService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static mk.finki.ukim.wp.lab.service.specifications.FieldFilterSpecification.*;
 
 @Service
 public class SongServiceImpl implements SongService {
@@ -43,14 +48,19 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public void addSong(String title, String trackId, String genre, long idAlbum, int releaseYear) {
+    public Song findByGenre(Genre genre) {
+        return songRepository.findByGenre(genre);
+    }
+
+    @Override
+    public void addSong(String title, String trackId, Genre genre, long idAlbum, int releaseYear) {
         Album album = albumRepository.findById(idAlbum).orElseThrow(() -> new RuntimeException("Album does not exist"));
         Song song = new Song(trackId,title,genre,releaseYear,album);
         songRepository.save(song);
     }
 
     @Override
-    public void editSong(Long songId, String title, String trackId, String genre, long idAlbum, int releaseYear) {
+    public void editSong(Long songId, String title, String trackId, Genre genre, long idAlbum, int releaseYear) {
 
         Song song = songRepository.findById(songId).orElseThrow( () -> new RuntimeException("Song not found"));
 
@@ -73,6 +83,16 @@ public class SongServiceImpl implements SongService {
     @Override
     public void deleteSong(Long id) {
         songRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Song> find(Long albumId, Genre genre) {
+
+        Specification<Song> specification = Specification
+                .where(filterEquals(Song.class,"album.id",albumId))
+                .and(filterEqualsV(Song.class,"genre",genre));
+
+        return songRepository.findAll(specification);
     }
 
     @Override

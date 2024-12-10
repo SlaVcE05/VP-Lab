@@ -51,7 +51,12 @@
   <label for="trackId">trackId:</label>
   <input type="text" id="trackId" name="trackId" th:value="${song} != null ? ${song.trackId} : ''"><br>
   <label for="genre">genre:</label>
-  <input type="text" id="genre" name="genre" th:value="${song} != null ? ${song.genre}: ''"><br>
+  <select id="genre" name="genre">
+    <th:block th:each="genre : ${genres}">
+      <option th:value="${genre.name()}" th:selected="(${song} != null ? ${song.getGenre()} :'') ==${genre.name()}"> <span th:text="${genre.name()}"></span></option>
+    </th:block>
+  </select>
+<!--  <input type="text" id="genre" name="genre" th:value="${song} != null ? ${song.genre}: ''"><br>-->
   <label for="idAlbum">Album:</label>
   <select id="idAlbum" name="idAlbum">
     <th:block th:each="album : ${albums}">

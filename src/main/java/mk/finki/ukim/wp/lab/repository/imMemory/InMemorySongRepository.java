@@ -2,6 +2,7 @@ package mk.finki.ukim.wp.lab.repository.imMemory;
 
 import mk.finki.ukim.wp.lab.model.Album;
 import mk.finki.ukim.wp.lab.model.Artist;
+import mk.finki.ukim.wp.lab.model.Genre;
 import mk.finki.ukim.wp.lab.model.Song;
 import mk.finki.ukim.wp.lab.repository.SongRepository;
 import mk.finki.ukim.wp.lab.service.AlbumService;
@@ -25,11 +26,11 @@ public class InMemorySongRepository {
         if (songRepository.count() != 0)
             return;
 
-        songs.add(new Song("0","Echoes of Tomorrow","Synthwave",2023,albums.get(0)));
-        songs.add(new Song("1","Moonlit Melodies","Jazz",2020,albums.get(1)));
-        songs.add(new Song("2","Whispers in the Rain","Metal",2019,albums.get(2)));
-        songs.add(new Song("3","Neon Nights","Retro Pop",2018,albums.get(3)));
-        songs.add(new Song("4","Solar Flare","Dubstep",2020,albums.get(4)));
+        songs.add(new Song("0","Echoes of Tomorrow", Genre.SYNTHWAVE,2023,albums.get(0)));
+        songs.add(new Song("1","Moonlit Melodies",Genre.JAZZ,2020,albums.get(1)));
+        songs.add(new Song("2","Whispers in the Rain",Genre.METAL,2019,albums.get(2)));
+        songs.add(new Song("3","Neon Nights",Genre.RETRO_POP,2018,albums.get(3)));
+        songs.add(new Song("4","Solar Flare",Genre.DUBSTEP,2020,albums.get(4)));
         songRepository.saveAll(songs);
     }
 
@@ -51,13 +52,13 @@ public class InMemorySongRepository {
         return artist;
     }
 
-    public void addSong(String title, String trackId, String genre, long idAlbum, int releaseYear) {
+    public void addSong(String title, String trackId, Genre genre, long idAlbum, int releaseYear) {
         Album album = albumService.findAll().stream().filter(a -> a.getId().equals(idAlbum)).findFirst().orElse(null);
         songs.add(new Song(trackId,title,genre,releaseYear,album));
     }
 
 
-    public void editSong(Long songId, String title, String trackId, String genre, long idAlbum, int releaseYear) {
+    public void editSong(Long songId, String title, String trackId, Genre genre, long idAlbum, int releaseYear) {
         Song song = findBySongId(songId);
         song.setTitle(title);
         song.setTrackId(trackId);
