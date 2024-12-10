@@ -27,13 +27,10 @@ public class SongController {
             model.addAttribute("hasError", error);
         }
 
+        model.addAttribute("albumId",albumId);
+        model.addAttribute("genre",genre);
+        model.addAttribute("songs",songService.find(albumId,genre));
 
-
-        if (albumId != null || genre != null){
-            model.addAttribute("albumId",albumId);
-            model.addAttribute("genre",genre);
-            model.addAttribute("songs",songService.find(albumId,genre));
-        }else model.addAttribute("songs",songService.listSongs());
 
         model.addAttribute("albums",albumService.findAll());
         model.addAttribute("genres",Genre.class.getEnumConstants());
