@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns:sec="">
 <head>
   <meta charset="utf-8">
   <title>Songs Homepage - Welcome to My Music Store</title>
@@ -10,6 +10,11 @@
       width: 1000px;
       margin: auto;
       padding: 20px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     header h1 {
@@ -72,25 +77,27 @@
       text-decoration: none;
       padding: 5px 10px;
       border-radius: 4px;
-      color: white;
       font-size: 0.9em;
       text-align: center;
     }
 
-    a.details {
+    a.details,a.login {
       background-color: #007bff;
+      color: white;
     }
 
     a.edit {
       background-color: #28a745;
+      color: white;
     }
 
     button.delete {
       background-color: #dc3545;
       border: none;
+      color: white;
     }
 
-    a.details:hover, a.edit:hover, button.delete:hover {
+    a:hover {
       opacity: 0.8;
     }
 
@@ -125,7 +132,12 @@
 </head>
 <body>
 <header>
-  <h1>Welcome to My Music Store</h1>
+  <h1>Welcome to My Music Store </h1>
+  <span>
+    <a href="/artistDetails">artists</a>
+    <a sec:authorize="isAnonymous()" class="login" href="/login">login</a>
+    <a sec:authorize="isAuthenticated()" class="login" href="/logout">logout</a>
+  </span>
 </header>
 <main>
   <th:block th:if="${hasError}">
@@ -159,16 +171,19 @@
 
       <div class="btns">
         <a class="details" th:href="'/songDetails?trackId=' + ${song.trackId}">Details</a>
-        <a class="edit" th:href="'/songs/edit/' + ${song.id}">Edit</a>
-        <button class="delete" formmethod="post" th:formaction="'/songs/delete/' + ${song.id}">Delete</button>
+        <th:block sec:authorize="hasRole('ADMIN')">
+          <a class="edit" th:href="'/songs/edit/' + ${song.id}">Edit</a>
+          <button class="delete" formmethod="post" th:formaction="'/songs/delete/' + ${song.id}">Delete</button>
+        </th:block>
       </div>
 
       <br/>
     </div>
     <input type='submit' value='Submit'>
   </form>
-  <button id="add-song" onclick="location.href='songs/add'">Add Song</button>
-
+  <th:block sec:authorize="hasRole('ADMIN')">
+    <button id="add-song" onclick="location.href='songs/add'">Add Song</button>
+  </th:block>
   <br><br><br>
   <form method="get" action="/artistSearch">
     <label for="firstName">First Name:</label>

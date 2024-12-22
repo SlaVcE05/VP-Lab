@@ -48,6 +48,9 @@ public class SongController {
 
     @PostMapping("/add")
     public String saveSong(@RequestParam String title, @RequestParam String trackId, @RequestParam Genre genre, @RequestParam String idAlbum, @RequestParam String releaseYear){
+        if (title.isEmpty() || trackId.isEmpty() || idAlbum.isEmpty() || releaseYear.isEmpty()){
+            return "redirect:/songs/add";
+        }
         songService.addSong(title,trackId,genre,Long.parseLong(idAlbum), Integer.parseInt(releaseYear));
         return "redirect:/songs";
     }
