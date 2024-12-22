@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Configuration
 @EnableWebSecurity
@@ -45,8 +44,7 @@ public class WebSecurityConfig {
                         .clearAuthentication(true)
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl("/songs"))
-                .exceptionHandling(ex -> ex.accessDeniedPage("/access_denied"));
+                        .logoutSuccessUrl("/songs"));
 
         return http.build();
     }
