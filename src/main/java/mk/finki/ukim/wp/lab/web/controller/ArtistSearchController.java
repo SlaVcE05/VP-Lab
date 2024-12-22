@@ -26,16 +26,7 @@ public class ArtistSearchController {
             return "redirect:/songs";
         }
 
-        List<Artist> artists = artistService.listArtists().stream().filter(artist -> {
-            boolean found = true;
-            if (!firstName.isEmpty() && !artist.getFirstName().equals(firstName.trim()))
-                found = false;
-            if (!lastName.isEmpty() && !artist.getLastName().equals(lastName.trim()))
-                found = false;
-            if (!bio.isEmpty() && !artist.getBio().equals(bio.trim()))
-                found = false;
-            return found;
-        }).toList();
+        List<Artist> artists = artistService.find(firstName, lastName, bio);
 
         model.addAttribute("artists",artists);
 
